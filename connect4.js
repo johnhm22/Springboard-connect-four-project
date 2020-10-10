@@ -33,8 +33,6 @@ function makeHtmlBoard() {
   // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
   const htmlBoard = document.querySelector('#board');
   
-
-  // TODO: add comment for this code
   //Creates table top row and assigns id
   //Calls handleClick function when top row clicked
   const top = document.createElement("tr");
@@ -51,7 +49,6 @@ function makeHtmlBoard() {
   }
   htmlBoard.append(top);
 
-  // TODO: add comment for this code
   //Creates HEIGHT number of table row elements with variable row
   //For each row element, creates a td element with variable cell
   //Each td element is assigned the id of y-x, these being defined by the loop
@@ -72,7 +69,6 @@ function makeHtmlBoard() {
 /** findSpotForCol: given column x, return top empty y (null if filled) */
 
 function findSpotForCol(x) {
-  // TODO: write the real version of this, rather than always returning 0
 //Find the lowest empty spot in the game board and return the y coordinate (or null if the column is filled).
 
 //copied from solution..almost got it
@@ -87,7 +83,6 @@ function findSpotForCol(x) {
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(y, x) {
-  // TODO: make a div and insert into correct table cell
 // This div should have the piece class on it, and should have a class for whether the current player is 1 or 2, like p1 or p2.
   const piece = document.createElement('div');
   piece.classList.add('piece');
@@ -109,11 +104,6 @@ function handleClick(evt) {
   // get x from ID of clicked cell
   const x = +evt.target.id;
 
-// add a check for “is the entire board filled” [hint: the JS every method on arrays would be especially nice here!]
-
-board.every(function(value){
-  return value === 'p1' || value === 'p2';
-});
 
 // add code to switch currPlayer between 1 and 2. This would be a great place for a ternary function.
 currPlayer === 1? currPlayer = 2: currPlayer = 1;
@@ -126,7 +116,6 @@ currPlayer === 1? currPlayer = 2: currPlayer = 1;
   }
 
   // place piece in board and add to HTML table
-  // TODO: add line to update in-memory board
   board[y][x] = currPlayer; //copied from solution, without this checkForWin isn't executed
   placeInTable(y, x);
 
@@ -136,9 +125,11 @@ currPlayer === 1? currPlayer = 2: currPlayer = 1;
   }
 
   // check for tie
-  // TODO: check if all cells in board are filled; if so call, call endGame
+  if (board.every(row => row.every(cell => cell))) {
+    return endGame('Tie!');
+  }
 
-}
+};
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
 
@@ -158,7 +149,6 @@ function checkForWin() {
     );
   }
 
-  // TODO: read and understand this code. Add comments to help you.
 
   for (let y = 0; y < HEIGHT; y++) {
     for (let x = 0; x < WIDTH; x++) {
